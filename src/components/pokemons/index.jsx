@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getPokemons, getPokemonData } from '../requestApi'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
 const PokemonCount = 10
 
@@ -39,31 +40,55 @@ function PokemonsList() {
 
   if (!pokemonData) { // se não tiver carregado ainda, retorna Loading
     return <span>Loading...</span>
-}
+  }
 
   const PokemonCard = ({ pokemon }) => (
     <li key={pokemon.name}>
-      <Link to={`pokemon/${pokemon.name}`} className="pokemon-card">
+      <PokemonCardStyle to={`pokemon/${pokemon.name}`}>
         <img src={pokemon.sprites.front_default} alt={pokemon.name} />
         <span>{pokemon.name}</span>
-      </Link>
+      </PokemonCardStyle>
     </li>
   )
   return (
     <>
-      <header>
-        <h1>Pokedex</h1>
-      </header>
-      <article className="pokedex-container">
-        <ul className="pokemon-list">
+      <PokedexContainer>
+        <PokemonList>
           {pokemonData.map((pokemon) => (
             <PokemonCard key={pokemon.name} pokemon={pokemon} />
           ))}
-        </ul>
+        </PokemonList>
         {buttonVisible && (<button onClick={handleGetMorePokemons}>Carregar mais</button>)}
-      </article>
+      </PokedexContainer>
     </>
   )
 }
+
+const PokedexContainer = styled.article`
+ background-color: #f00;
+`
+
+const PokemonList = styled.ul`
+  background-color: #0f0;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  height: 100%;
+  gap: 1rem;
+  padding: 1rem;
+`
+
+const PokemonCardStyle = styled(Link)`
+  background-color: #00f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  
+  &:hover {
+    background-color: #ff0;
+    cursor: pointer;
+  }
+`
 
 export { PokemonsList }
