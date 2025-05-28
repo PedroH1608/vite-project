@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom' // hook que retorna os parâmetros da URL
-import { getPokemonAbilityDetails, getPokemonData } from '../requestApi'
+import { getPokemonDetails, getPokemonData } from '../requestApi'
+import { usePokemonColor } from '../hooks/usePokemonColor'
 import { Link } from 'react-router-dom'
 
 const PokemonDetails = () => {
@@ -16,7 +17,7 @@ const PokemonDetails = () => {
             setPokemon(pokemonData)
 
             const abilityPromises = pokemonData.abilities.map(ability =>
-                getPokemonAbilityDetails(ability.ability.url)
+                getPokemonDetails(ability.ability.url)
             )
 
             const abilitiesData = await Promise.all(abilityPromises)
@@ -28,7 +29,7 @@ const PokemonDetails = () => {
     if (!pokemon || abilitiesDetails.length === 0) { // se não tiver carregado ainda, retorna Loading
         return <span>Loading...</span>
     }
-    // ajeitar abaixo refatorando
+    // refatorar
     return (
         <div>
             <Link to='/'>Back</Link>

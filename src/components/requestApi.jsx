@@ -12,9 +12,9 @@ async function getPokemonData(name) {
     return pokemonData
 }
 
-async function getPokemonAbilityDetails(url) {
+async function getPokemonDetails(url) {
     const response = await axios.get(url)
     return response.data
 }
 
-export { getPokemons, getPokemonData, getPokemonAbilityDetails }
+export { getPokemons, getPokemonData, getPokemonDetails }

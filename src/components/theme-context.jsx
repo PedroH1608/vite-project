@@ -1,13 +1,16 @@
 import { createContext, useState } from 'react'
+import { ThemeProvider as StyledThemeProvider } from 'styled-components'
 
 export const themes = {
     light: {
-        background: '#fff',
-        color: '#000'
+        background: '#ccc',
+        containerBackground: '#fff',
+        color: '#000',
     },
     dark: {
         background: '#000',
-        color: '#fff'
+        containerBackground: '#333',
+        color: '#fff',
     }
 }
 
@@ -19,7 +22,9 @@ export const ThemeProvider = (props) => {
 
     return (
         <ThemeContext.Provider value={{ theme, setTheme }}>
-            {props.children}
+            <StyledThemeProvider theme={theme}>
+                {props.children}
+            </StyledThemeProvider>
         </ThemeContext.Provider>
     )
 }

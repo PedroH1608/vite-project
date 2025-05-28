@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getPokemons, getPokemonData } from '../requestApi'
 import { Link } from 'react-router-dom'
+import { usePokemonColor } from '../hooks/usePokemonColor'
 import styled from 'styled-components'
 
 const PokemonCount = 10
@@ -42,52 +43,58 @@ function PokemonsList() {
     return <span>Loading...</span>
   }
 
-  const PokemonCard = ({ pokemon }) => (
-    <li key={pokemon.name}>
-      <PokemonCardStyle to={`pokemon/${pokemon.name}`}>
-        <img src={pokemon.sprites.front_default} alt={pokemon.name} />
-        <span>{pokemon.name}</span>
-      </PokemonCardStyle>
-    </li>
-  )
+  const PokemonCard = ({ pokemon }) => {
+    const color = usePokemonColor(pokemon);
+    return (
+      <li key={pokemon.name}>
+        <PokemonCardStyle to={`pokemon/${pokemon.name}`} $color={color}>
+          <img src={pokemon.sprites.front_default} alt={pokemon.name} />
+          <span>{pokemon.name}</span>
+        </PokemonCardStyle>
+      </li>
+    )
+  }
+
   return (
-    <>
-      <PokedexContainer>
-        <PokemonList>
-          {pokemonData.map((pokemon) => (
-            <PokemonCard key={pokemon.name} pokemon={pokemon} />
-          ))}
-        </PokemonList>
-        {buttonVisible && (<button onClick={handleGetMorePokemons}>Carregar mais</button>)}
-      </PokedexContainer>
-    </>
+    <PokedexContainer>
+      <PokemonList>
+        {pokemonData.map((pokemon) => (
+          <PokemonCard key={pokemon.name} pokemon={pokemon} />
+        ))}
+      </PokemonList>
+      {buttonVisible && (<button onClick={handleGetMorePokemons}>Carregar mais</button>)}
+    </PokedexContainer>
   )
 }
 
 const PokedexContainer = styled.article`
- background-color: #f00;
+ background-color: ${props => props.theme.containerBackground};
+ height: 100%;
+ padding: 2rem;
+ margin: 2rem;
+ transition: all 0.3s ease;
 `
 
 const PokemonList = styled.ul`
-  background-color: #0f0;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   height: 100%;
-  gap: 1rem;
-  padding: 1rem;
+  gap: 0.5rem;
+  list-style: none;
 `
 
 const PokemonCardStyle = styled(Link)`
-  background-color: #00f;
+  background-color: ${props => props.$color};
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100%;
+  transition: all 0.3s ease;
+  padding: 0.5rem;
   
   &:hover {
-    background-color: #ff0;
-    cursor: pointer;
+    padding: 1.2rem;
   }
 `
 
