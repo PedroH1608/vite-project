@@ -1,6 +1,6 @@
-import { Container } from './components/pokemons/container'
+import { Container } from './components/container'
 import { ThemeProvider } from './components/theme-context'
-import { Header } from './components/pokemons/header'
+import { Header } from './components/templates/organisms/pageHeader'
 import { AppRoutes } from './pages/routes'
 import { createGlobalStyle } from 'styled-components'
 

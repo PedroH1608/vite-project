@@ -1,12 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import { Pokemons } from './pokemons'
-import { Pokemon } from './pokemon'
+import { PokedexRoute } from "./pokedexRoute"
+import { PokemonRoute } from "./pokemonRoute"
 
 const AppRoutes = () => (
     <BrowserRouter>
         <Routes>
-            <Route path="/" element={<Pokemons />} />
-            <Route path="/pokemon/:name" element={<Pokemon />} />
+            <Route path="/" element={<PokedexRoute />} />
+            <Route path="/pokemon/:name" element={<PokemonRoute />} />
         </Routes>
     </BrowserRouter>
 )
