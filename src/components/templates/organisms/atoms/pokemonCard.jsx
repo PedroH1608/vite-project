@@ -3,15 +3,15 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const PokemonCard = ({ pokemon }) => {
-    const color = usePokemonColor(pokemon);
-    return (
-        <li key={pokemon.name}>
-            <PokemonCardStyle to={`pokemon/${pokemon.name}`} $color={color}>
-                <img src={pokemon.sprites.front_default} alt={pokemon.name} />
-                <span>{pokemon.name}</span>
-            </PokemonCardStyle>
-        </li>
-    )
+  const color = usePokemonColor(pokemon);
+  return (
+    <li key={pokemon.name}>
+      <PokemonCardStyle to={`pokemon/${pokemon.name}`} $color={color}>
+        <img src={pokemon.sprites.versions?.['generation-iii']?.['ruby-sapphire']?.front_default} alt={pokemon.name} />
+        <span>{pokemon.name}</span>
+      </PokemonCardStyle>
+    </li>
+  )
 }
 
 const PokemonCardStyle = styled(Link)`
@@ -23,8 +23,25 @@ const PokemonCardStyle = styled(Link)`
   height: 100%;
   transition: all 0.3s ease;
   padding: 0.5rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
   
+  img {
+    height: 100%;
+    padding: 0.3rem;
+  }
+
+  span {
+    text-transform: capitalize;
+    font-size: 0.8rem;
+  }
+    
   &:hover {
-    padding: 1.2rem;
+    transform: scale(1.15);
+
+    span {
+      font-weight: 700;
+      transition: font-weight 0.5s ease;
+    }
   }
 `
+{/* <img src={pokemon.sprites.front_default} alt={pokemon.name} /> */ }

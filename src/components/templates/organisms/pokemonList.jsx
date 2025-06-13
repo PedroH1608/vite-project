@@ -15,6 +15,5 @@ const PokemonListStyle = styled.ul`
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   height: 100%;
-  gap: 0.5rem;
-  list-style: none;
+  gap: 1rem;
 `

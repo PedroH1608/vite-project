@@ -10,5 +10,13 @@ const LoadMoreButtonStyle = styled.button`
   padding: 0.5rem;
   border-radius: 0.25rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  width: 10rem;
+  margin: 1rem;
+
+  &:hover {
+  font-weight: 700;
+  padding: 1rem;
+  margin-bottom: 0;
+  }
 `

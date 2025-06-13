@@ -23,11 +23,10 @@ const GlobalStyle = createGlobalStyle`
     border: none;
     outline: none;
     font-weight: 400;
+    font-family: "Open Sans", sans-serif;
     box-sizing: border-box;
-  }
-
-  a {
     text-decoration: none;
+    list-style: none;
     color: black;
   }
 `

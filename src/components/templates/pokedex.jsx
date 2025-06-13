@@ -19,9 +19,13 @@ export const Pokedex = () => {
 }
 
 const PokedexContainer = styled.article`
- background-color: ${props => props.theme.containerBackground};
- height: 100%;
- padding: 2rem;
- margin: 2rem;
- transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: ${props => props.theme.containerBackground};
+  height: 100%;
+  padding: 2rem;
+  margin: 2rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 30px rgba(0,0,0,0.3);
 `
