@@ -1,23 +1,42 @@
-import { getPokemonDetails } from '../requestApi';
+import { useState, useEffect } from 'react';
 
 const colorMap = {
-    normal: '#a0a1a0',
-    fighting: '#f08833',
-    flying: '#8fb8e4',
-    poison: '#6d4a96',
-    ground: '#885329',
-    rock: '#aca985',
-    bug: '#94a035',
-    ghost: '#6b436f',
-    steel: '#74a3b8',
-    fire: '#d53b30',
-    water: '#4d78bc',
-    grass: '#5d9d3c',
-    electric: '#f2c240',
-    psychic: '#dc4d79',
-    ice: '#78cdf1',
-    dragon: '#4d60a8',
-    dark: '#4f413f',
-    fairy: '#bb7eb5',
+    normal: '#aa9',
+    fighting: '#b54',
+    flying: '#89f',
+    poison: '#a59',
+    ground: '#db5',
+    rock: '#ba6',
+    bug: '#ab2',
+    ghost: '#66b',
+    steel: '#aab',
+    fire: '#f42',
+    water: '#39f',
+    grass: '#7c5',
+    electric: '#fc3',
+    psychic: '#f59',
+    ice: '#6cf',
+    dragon: '#76e',
+    dark: '#754',
+    fairy: '#e9e',
     stellar: '#77a697',
 };
+
+export const usePokemonTypeColor = (pokemon) => {
+    const [typeColor, setTypeColor] = useState('');
+
+    useEffect(() => {
+        if (!pokemon) return;
+
+        const fetchPokemonTypeColor = async () => {
+            const color = pokemon.types.map(typeData => 
+                colorMap[typeData.type.name]
+            );
+            setTypeColor(color);
+        };
+
+        fetchPokemonTypeColor();
+    }, [pokemon]);
+
+    return typeColor;
+}

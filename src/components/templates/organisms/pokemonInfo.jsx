@@ -15,6 +15,5 @@ export const PokemonInfo = ({ pokemon, abilitiesDetails }) => {
 
 const PokemonInfoStyle = styled.div`
     display: flex;
-    align-items: center;
-    background-color: #f00;
+    justify-content: center;
 `

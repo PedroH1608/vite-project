@@ -44,4 +44,3 @@ const PokemonCardStyle = styled(Link)`
     }
   }
 `
-{/* <img src={pokemon.sprites.front_default} alt={pokemon.name} /> */ }

@@ -1,13 +1,17 @@
-import { useContext } from "react"
-import { ThemeContext } from "./theme-context"
+import styled from "styled-components";
 
 export const Container = (props) => {
-
-    const { theme } = useContext(ThemeContext)
-
     return (
-        <div style={{ background: theme.background, minHeight: '100vh' }}>
+        <ContainerStyle>
             {props.children}
-        </div>
+        </ContainerStyle>
     );
 }
+
+const ContainerStyle = styled.div`
+    display: flex;
+    flex-direction: column;
+    background-color: ${props => props.theme.background};
+    min-height: 100vh;
+    width: 100%;
+`

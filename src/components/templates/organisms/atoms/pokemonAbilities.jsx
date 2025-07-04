@@ -7,14 +7,13 @@ export const PokemonAbilities = ({ pokemon, abilitiesDetails }) => {
             <ul>
                 {pokemon.abilities.map((abilityData, index) => {
                     const abilityDetail = abilitiesDetails[index]
-                    const effects = abilityDetail.effect_entries.find( // find the effect entry with language 'en'
-                        entry => entry.language.name === 'en'
-                    )
+                    const effects = abilityDetail.effect_entries.find(
+                        entry => entry.language.name === 'en')
                     return (
-                        <li key={index}>
+                        <PokemonAbility key={index}>
                             <h3>{abilityData.ability.name}</h3>
                             <p>{effects?.effect || 'No description available'}</p>
-                        </li>
+                        </PokemonAbility>
                     )
                 })}
             </ul>
@@ -25,9 +24,30 @@ export const PokemonAbilities = ({ pokemon, abilitiesDetails }) => {
 const PokemonAbilitiesStyle = styled.div`
     display: flex;
     flex-direction: column;
-    background-color: #0ff;
+    width: 100%;
+    padding: 0 1rem;
 
     h2 {
+        text-transform: capitalize;
         margin-bottom: 1rem;
+        font-weight: 700;
+        color: ${props => props.theme.color};
+    }
+`
+
+const PokemonAbility = styled.li`
+    display: flex;    
+    flex-direction: column;
+    margin-bottom: 1rem;
+
+    h3 {
+        text-transform: uppercase;
+        font-weight: 700;
+        color: ${props => props.theme.color};
+    }
+
+    p {
+        margin: 0.5rem 0 0;
+        color: ${props => props.theme.color};
     }
 `

@@ -7,8 +7,13 @@ export const ThemeButton = (props) => {
 const ThemeButtonStyle = styled.button`
   background-color: ${props => props.theme.background};
   color: ${props => props.theme.color};
-  padding: 0.5rem;
+  padding: 0.7rem;
   border-radius: 0.25rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+
+  &:hover {
+      font-weight: 700;
+      transform: scale(1.15)
+  }
 `

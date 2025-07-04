@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom';
 import { usePokemonDetails } from '../hooks/usePokemonDetails';
-import { Link } from 'react-router-dom';
 import { PokemonInfo } from './organisms/pokemonInfo';
 import { PokemonMoves } from './organisms/pokemonMoves';
 import styled from 'styled-components';
@@ -14,21 +13,27 @@ export const PokemonDetails = () => {
     }
 
     return (
-        <div>
-            <Link to='/'>Back</Link>
+        <PokemonStyle>
             <PokemonContainer>
                 <PokemonInfo pokemon={pokemon} abilitiesDetails={abilitiesDetails} />
                 <PokemonMoves pokemon={pokemon} />
             </PokemonContainer>
-        </div>
+        </PokemonStyle>
     )
 }
+
+const PokemonStyle = styled.div`
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+`
 
 const PokemonContainer = styled.article`
  display: flex;
  flex-direction: column;
  background-color: ${props => props.theme.containerBackground};
  height: 100%;
+ width: 100%;
  padding: 2rem;
  margin: 2rem;
  transition: all 0.3s ease;

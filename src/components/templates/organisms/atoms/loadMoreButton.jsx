@@ -16,7 +16,7 @@ const LoadMoreButtonStyle = styled.button`
 
   &:hover {
   font-weight: 700;
-  padding: 1rem;
-  margin-bottom: 0;
+  transform: scale(1.15);
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
   }
 `
