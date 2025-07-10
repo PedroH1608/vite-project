@@ -46,7 +46,7 @@ const GlobalStyle = createGlobalStyle`
       font-size: 1.2rem;
     }
 
-    span, button {
+    span, button, select {
       font-size: 1rem;
     }
   }

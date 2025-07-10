@@ -7,7 +7,7 @@ export const PokemonCard = ({ pokemon }) => {
   return (
     <li key={pokemon.name}>
       <PokemonCardStyle to={`pokemon/${pokemon.name}`} $color={color}>
-        <img src={pokemon.sprites.versions?.['generation-iii']?.['ruby-sapphire']?.front_default} alt={pokemon.name} />
+        <img src={pokemon.sprites.front_default} alt={pokemon.name} />
         <span>{pokemon.name}</span>
       </PokemonCardStyle>
     </li>
@@ -26,13 +26,13 @@ const PokemonCardStyle = styled(Link)`
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
   
   img {
-    height: 100%;
+    height: 7rem;
     padding: 0.3rem;
   }
 
   span {
     text-transform: capitalize;
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
     
   &:hover {
@@ -41,6 +41,16 @@ const PokemonCardStyle = styled(Link)`
     span {
       font-weight: 700;
       transition: font-weight 0.5s ease;
+    }
+  }
+
+  @media (max-width: 1280px) {
+    img {
+      height: 5rem;
+    }
+
+    span {
+      font-size: 0.8rem;
     }
   }
 `

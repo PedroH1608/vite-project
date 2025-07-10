@@ -17,4 +17,14 @@ async function getPokemonDetails(url) {
     return response.data
 }
 
-export { getPokemons, getPokemonData, getPokemonDetails }
+async function getPokemonTypes() {
+    const response = await axios.get('https://pokeapi.co/api/v2/type')
+    return response.data.results
+}
+
+async function getPokemonsByType(type) {
+    const response = await axios.get(`https://pokeapi.co/api/v2/type/${type}`)
+    return response.data.pokemon
+}
+
+export { getPokemons, getPokemonData, getPokemonDetails, getPokemonTypes, getPokemonsByType }

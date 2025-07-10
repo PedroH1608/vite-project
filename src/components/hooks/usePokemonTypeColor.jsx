@@ -20,6 +20,7 @@ const colorMap = {
     dark: '#754',
     fairy: '#e9e',
     stellar: '#77a697',
+    unknown: '#000'
 };
 
 export const usePokemonTypeColor = (pokemon) => {

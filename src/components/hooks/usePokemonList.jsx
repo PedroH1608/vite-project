@@ -1,38 +1,59 @@
-import { useState, useEffect } from "react"
-import { getPokemons, getPokemonData } from "../requestApi"
+import { useState, useEffect, useRef } from "react"
+import { getPokemons, getPokemonData, getPokemonsByType } from "../requestApi"
 
-export const usePokemonList = (initialCount = 10) => {
+export const usePokemonList = (selectedType = 'all', initialCount = 10) => {
     const [pokemonData, setPokemonData] = useState([])
     const [offset, setOffset] = useState(0)
     const [buttonVisible, setButtonVisible] = useState(true)
 
-    const fetchPokemons = async (limit, currentOffset) => {
-        const fetchedPokemons = await getPokemons(limit, currentOffset)
-        const pokemonFetchPromises = fetchedPokemons.map(pokemon => getPokemonData(pokemon.name))
-        return Promise.all(pokemonFetchPromises)
-    }
-
-    const handleGetPokemons = async () => {
-        const pokemonData = await fetchPokemons(initialCount, 0)
-        setPokemonData(pokemonData)
-    }
-
-    const handleGetMorePokemons = async () => {
-        const newOffset = offset + initialCount
-        const morePokemonData = await fetchPokemons(initialCount, newOffset)
-
-        setPokemonData(prevData => [...prevData, ...morePokemonData])
-        setOffset(newOffset)
-        setButtonVisible(false)
-    }
+    const [loading, setLoading] = useState(false)
+    const typePokemonListRef = useRef([])
 
     useEffect(() => {
-        handleGetPokemons()
-    }, [])
+        const fetchInitial = async () => {
+            setLoading(true)
+            setOffset(0)
+            if (selectedType === 'all') {
+                const pokemons = await getPokemons(initialCount, 0)
+                const data = await Promise.all(pokemons.map(pokemon => getPokemonData(pokemon.name)))
+                setPokemonData(data)
+            } else {
+                const typePokemons = await getPokemonsByType(selectedType)
+                typePokemonListRef.current = typePokemons
+                const slice = typePokemons.slice(0, initialCount)
+                const data = await Promise.all(slice.map(pokemon => getPokemonData(pokemon.pokemon.name)))
+                setPokemonData(data)
+                setButtonVisible(typePokemons.length > initialCount)
+            }
+            setLoading(false)
+        }
+        fetchInitial()
+    }, [selectedType])
+
+    const handleGetMorePokemons = async () => {
+        setLoading(true)
+        const newOffset = offset + initialCount
+        if (selectedType === 'all') {
+            const pokemons = await getPokemons(initialCount, newOffset)
+            const data = await Promise.all(pokemons.map(pokemon => getPokemonData(pokemon.name)))
+            setPokemonData(prevData => [...prevData, ...data])
+            setOffset(newOffset)
+            setButtonVisible(data.length === initialCount)
+        } else {
+            const typePokemons = typePokemonListRef.current
+            const slice = typePokemons.slice(newOffset, newOffset + initialCount)
+            const data = await Promise.all(slice.map(pokemon => getPokemonData(pokemon.pokemon.name)))
+            setPokemonData(prevData => [...prevData, ...data])
+            setOffset(newOffset)
+            setButtonVisible(newOffset + initialCount < typePokemons.length)
+        }
+        setLoading(false)
+    }
 
     return {
         pokemonData,
         buttonVisible,
-        handleGetMorePokemons
+        handleGetMorePokemons,
+        loading
     }
 }

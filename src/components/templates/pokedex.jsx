@@ -1,10 +1,13 @@
+import { useState } from 'react';
 import { usePokemonList } from '../hooks/usePokemonList';
+import { PokemonTypeFilter } from './organisms/atoms/pokemonTypeFilter';
 import { PokemonList } from './organisms/pokemonList';
 import { LoadMoreButton } from './organisms/atoms/loadMoreButton';
 import styled from 'styled-components';
 
 export const Pokedex = () => {
-  const { pokemonData, buttonVisible, handleGetMorePokemons } = usePokemonList()
+  const [selectedType, setSelectedType] = useState('all')
+  const { pokemonData, buttonVisible, handleGetMorePokemons } = usePokemonList(selectedType)
 
   if (!pokemonData) {
     return <span>Loading...</span>
@@ -12,7 +15,8 @@ export const Pokedex = () => {
 
   return (
     <PokedexContainer>
-      <PokemonList pokemonData={pokemonData} />
+      <PokemonTypeFilter selectedType={selectedType} onTypeChange={setSelectedType} />
+      <PokemonList pokemonData={pokemonData} selectedType={selectedType} />
       {buttonVisible && <LoadMoreButton onClick={handleGetMorePokemons} />}
     </PokedexContainer>
   )

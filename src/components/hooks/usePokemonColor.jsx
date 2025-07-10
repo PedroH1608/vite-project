@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import { getPokemonDetails } from '../requestApi';
 
 const colorMap = {
-    black: '#000000',
+    black: '#505050',
     blue: '#3D8BFF',
     brown: '#B8860B',
-    gray: '#696969',
+    gray: '#808080',
     green: '#228B22',
     pink: '#DB7093',
     purple: '#6A5ACD',
